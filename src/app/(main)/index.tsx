@@ -13,10 +13,21 @@ import IconGroup from '@/src/assets/icons/icon-group.svg';
 import IconUpdates from '@/src/assets/icons/icon-updates.svg';
 import IconCalls from '@/src/assets/icons/icon-phone.svg';
 import IconChats from '@/src/assets/icons/icon-chats.svg';
+import StatusCarousel, { StatusItem } from '@/src/components/atoms/statusCard'
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 
 
 const Main = () => {
+ const statusData: StatusItem[] = [
+  { name: "Umer", img: "https://i.pravatar.cc/100?img=1", bg: "https://picsum.photos/400/300", },
+  { name: "Ali", img: "https://i.pravatar.cc/100?img=2", bg: "https://picsum.photos/600/300", },
+  { name: "Hamza", img: "https://i.pravatar.cc/100?img=3",bg: "https://picsum.photos/300/300", },
+  { name: "Sara", img: "https://i.pravatar.cc/100?img=4",bg: "https://picsum.photos/500/300", },
+  { name: "Alex", img: "https://i.pravatar.cc/100?img=7",bg: "https://picsum.photos/900/300", },
+  { name: "Simon", img: "https://i.pravatar.cc/100?img=12",bg: "https://picsum.photos/900/400", },
+];
+
   const [currentPage, setCurrentPage] = useState("chats")
 
   const ActivePage = () => {
@@ -51,7 +62,7 @@ const Main = () => {
       case "calls":
         return "Calls";
       default:
-        return "WhatsApp";
+        return <Chats />;
     }
   };
 
@@ -85,29 +96,56 @@ const Main = () => {
     }
   }
 
-
-  return (
-    <SafeAreaView style={styles.container}>
-
-      <View style={styles.topBarContainer} >
-
-        <View style={styles.topBarContent} >
-          <Text style={styles.topBarText} >{getHeaderTitle()}</Text>
-          <View style={styles.topBarText_Icon} >
-            {getHeaderIcon()}
-            {/* <Ionicons name="camera-outline" size={24} color="black" /> */}
-            {/* <MaterialCommunityIcons name="dots-vertical" size={24} color="black" /> */}
-            {getHeaderSettingDots()}
-          </View>
-        </View>
-
-        <View style={styles.searchBarContainer} >
+  const getUpdateSetting = () => {
+    switch (currentPage){
+      case "chats":
+        return <View style={styles.searchBarContainer} >
           <Ionicons name="search-sharp" size={24} color="#8d8989ff" />
           <TextInput style={styles.topBarSearchBar} placeholder='Ask Meta AI or Search' placeholderTextColor="#595959" cursorColor={"#23b769"}></TextInput>
 
         </View>
 
-        <View style={styles.middleBarButtonContainer} >
+      case "updates":
+        return <View style={styles.statusBarContainer} >
+          
+          <Text style={styles.statusBarText}> Status</Text>
+
+        </View>;
+
+        case "calls":
+          const bottomIcons = [
+ { icon: <Ionicons name="call-outline" size={24} color="black" />, label: "Calls" },
+ { icon: <FontAwesome name="calendar" size={24} color="black" />, label: "Schedule" },
+ { icon: <MaterialIcons name="dialpad" size={24} color="black" />, label: "Keypad" },
+ { icon: <FontAwesome name="heart-o" size={24} color="black" />, label: "Favorites" },
+];
+          return(
+            
+
+<View style={styles.bottomBar}>
+  {bottomIcons.map((item, index) => (
+    <View key={index} style={styles.iconWrapper}>
+      <View style={styles.iconSetting}>
+        {item.icon}
+      </View>
+      <Text style={styles.iconText}>{item.label}</Text>
+    </View>
+  ))}
+</View>
+
+
+          );
+
+        // default:
+        // return "WhatsApp";
+
+    }
+  }
+
+  const getStatusSetting = () => {
+    switch (currentPage){
+      case "chats":
+        return <View style={styles.middleBarButtonContainer} >
           {[
             { key: "All" },
             { key: "Unread" },
@@ -123,6 +161,28 @@ const Main = () => {
 
         </View>
 
+        case "updates":
+          return  <View style={styles.statusCardContainer}>
+            
+          <StatusCarousel
+  data={statusData}
+  onPressStatus={(item) => console.log("Open Status:", item)}
+/>
+          </View>        
+
+
+        // default:
+        // return "WhatsApp";
+    }
+
+        
+  }
+
+  const getUpdateMiddleBarSetting = () => {
+    switch (currentPage) {
+
+      case "chats":
+        return  (
         <TouchableOpacity>
           <View style={styles.archiveContainer} >
             
@@ -141,7 +201,68 @@ const Main = () => {
 
 
 
-        </TouchableOpacity>
+        </TouchableOpacity>);
+
+          case "updates":
+            return (
+            <View style={styles.channelContainer}>
+              <Text style={styles.textChannel}>
+                Channels
+              </Text>
+
+              <TouchableOpacity activeOpacity={0.8} style={styles.exploreButton}>
+                <Text style={styles.exploreButtonText}>Explore</Text>                
+
+              </TouchableOpacity>
+
+            </View>
+            );
+
+        //      default:
+        // return "WhatsApp";
+
+
+    }
+  }
+
+  return (
+    <SafeAreaView style={styles.container}>
+
+      <View style={styles.topBarContainer} >
+
+        <View style={styles.topBarContent} >
+          <Text style={styles.topBarText} >{getHeaderTitle()}</Text>
+          <View style={styles.topBarText_Icon} >
+            {getHeaderIcon()}
+            {/* <Ionicons name="camera-outline" size={24} color="black" /> */}
+            {/* <MaterialCommunityIcons name="dots-vertical" size={24} color="black" /> */}
+            {getHeaderSettingDots()}
+          </View>
+        </View>
+
+        {getUpdateSetting()}
+
+        {getStatusSetting()}
+
+        {getUpdateMiddleBarSetting()}
+
+        {/* <View style={styles.middleBarButtonContainer} >
+          {[
+            { key: "All" },
+            { key: "Unread" },
+            { key: "Favorites" },
+            { key: "Groups" },
+            { key: "+" },
+
+          ].map((item, index) => {
+            return <TouchableOpacity key={index} style={styles.middleBarButton}>
+              <Text style={styles.middleBarText} >{item.key}</Text>
+            </TouchableOpacity>
+          })}
+
+        </View> */}
+
+       
 
       </View>
 
@@ -176,6 +297,105 @@ const styles = StyleSheet.create({
 
   },
 
+
+  bottomBar: {
+  flexDirection: "row",
+  justifyContent: "space-between",
+  paddingVertical: 15,
+  paddingHorizontal: 10,
+  
+},
+
+iconWrapper: {
+  alignItems: "center",
+},
+
+iconSetting: {
+  height: 55,
+  width: 55,
+  borderRadius: 55,
+  alignItems: "center",
+  justifyContent: "center",
+  backgroundColor: "#e4e6e8",
+  marginBottom: 6, // icon aur text ke darmiyan gap
+},
+
+iconText: {
+  fontSize: 11,
+  color: "black",
+},
+
+
+  // iconBarContainer:{
+   
+  // },
+  // iconBar:{
+  //    flexDirection:"row",
+  //   justifyContent:"space-between",
+  //   paddingVertical:verticalScale(20),
+  //   paddingHorizontal:moderateScale(10),
+    
+  // },
+  // iconSetting:{
+  //   height:moderateScale(55),
+  //   width:verticalScale(50),
+  //   borderRadius:moderateScale(50),
+  //   alignItems:'center',
+  //   justifyContent:'center',
+  //   backgroundColor:"#e4e6e8",
+  // },
+
+  // iconBarText:{
+  //   flexDirection:'row',
+  //   justifyContent:"space-between",
+  //   paddingHorizontal:moderateScale(25),
+    
+
+  // },
+  // iconText:{
+  //   fontSize:moderateScale(11),
+  // },
+
+  channelContainer:{
+    flexDirection:"row",
+    justifyContent:"space-between",
+    paddingTop:verticalScale(10),
+    alignItems:"center"
+
+  },
+  exploreButton:{
+    backgroundColor:"#e4e6e8",
+    borderRadius:moderateScale(50),
+    
+    
+  },
+  exploreButtonText:{
+    paddingVertical:verticalScale(5),
+    paddingHorizontal:moderateScale(20),
+
+  },
+
+  textChannel:{
+    fontSize:moderateScale(20)
+  },
+
+
+  statusBarContainer:{
+    paddingTop: verticalScale(20),
+    
+  },
+  statusCardContainer:{
+    paddingVertical:verticalScale(13),
+    paddingStart:moderateScale(5),
+    
+  },
+
+  statusBarText:{
+    fontSize:moderateScale(20),
+  },
+  
+ 
+  statusCard:{},
  
 
   topBarContainer: {
@@ -280,7 +500,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     height: verticalScale(45),
-    backgroundColor: "#ece5dd",
+    backgroundColor: "#e4e6e8",
     borderRadius: scale(50),
     marginTop: verticalScale(15),
     paddingHorizontal: scale(12),

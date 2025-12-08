@@ -1,37 +1,49 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native'
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import MessageCard from './messageCard'
-import imagePath from '@/src/constants/imagePath'
 
 const Updates = () => {
 
   const data = [
-    {
-      image: imagePath.profile_picture,
-      name: "Syed Umer Ali Hashmi",
-      message: "Hello! How are you?",
-      time: "Yesterday",
-      count: "5",
-    },
-    {
-      image: imagePath.profile_picture,
-      name: "Ahmed Khan",
-      message: "AsalamuAlaikum is product  available ?",
-      time: "9:27 AM",
-      count: "1",
-    },
-    {
-      image: imagePath.profile_picture,
-      name: "Junaid Akram",
-      message: "Hello! How are you?",
-      time: "6:11 PM",
-      count: 0
-    },
+   {
+         image: "https://i.pravatar.cc/100?img=31",
+         name: "Circle of Life",
+         message: "Hello! How are you?",
+         time: "Yesterday",
+         count: "522",
+       },
+       {
+         image: "https://i.pravatar.cc/100?img=67",
+         name: "AI Revolution",
+         message: "AsalamuAlaikum is product  available ?",
+         time: "9:27 AM",
+         count: "87",
+       },
+       {
+         image: "https://i.pravatar.cc/100?img=28",
+         name: "Netflix",
+         message: "Wait a minute! Who are you?",
+         time: "6:11 PM",
+         count: "39"
+       },
+       {
+         image: "https://i.pravatar.cc/100?img=21",
+         name: "The New York Times",
+         message: "We are Venom!",
+         time: "8:11 PM",
+         count: 0
+       },
+       {
+         image: "https://i.pravatar.cc/100?img=33",
+         name: "Opportunities Corner",
+         message: "We are Venom!",
+         time: "8:11 PM",
+         count: 0
+       },
 
   ]
   return (
-    <SafeAreaView style={styles.container} >
+    <View style={styles.container} >
       <FlatList data={data} renderItem={({ item }) => {
         return <MessageCard 
         image={item?.image} 
@@ -43,7 +55,7 @@ const Updates = () => {
 
       }} />
 
-    </SafeAreaView>
+    </View>
   )
 }
 
