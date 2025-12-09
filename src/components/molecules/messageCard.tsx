@@ -1,10 +1,12 @@
 
+import Ionicons from '@expo/vector-icons/Ionicons'
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 
 
-const MessageCard = ({ image, name, message, time, count }: any) => {
+
+const MessageCard = ({ image, name, message, time, count, icon }: any) => {
   return (
 
     <View style={styles.cardContainer}>
@@ -22,20 +24,33 @@ const MessageCard = ({ image, name, message, time, count }: any) => {
           <View style={styles.textContainer} >
             <Text style={styles.name} >{name}</Text>
             <Text style={styles.message} >{message}</Text>
+            
           </View>
         </View>
 
-        <View style={styles.rightContainer} >
-          <Text style={styles.time} >{time}</Text>
-          {/* <Text style={styles.} ></Text> */}
-          {!!count && (
-            <View style={styles.messageCountContainer} >
-              <Text style={styles.messageCount} >{count}</Text>
-            </View>
-          )}
+        {/* RIGHT SIDE CONDITIONAL */}
+{
+  icon ? (
+    // Agar icon aye to sirf icon dikhao
+    <View style={styles.rightIconContainer}>
+      {icon}
+    </View>
+  ) : (
+    // Agar icon na ho to time + count dikhao
+    <View style={styles.rightContainer}>
+      <Text style={styles.time}>{time}</Text>
 
-
+      {count > 0 && (
+        <View style={styles.messageCountContainer}>
+          <Text style={styles.messageCount}>{count}</Text>
         </View>
+      )}
+    </View>
+  )
+}
+
+          
+
 
 
       </TouchableOpacity>
@@ -117,5 +132,13 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(12),
 
   },
+
+
+  rightIconContainer: {
+  justifyContent: "center",
+  alignItems: "center",
+  paddingHorizontal: moderateScale(5)
+}
+
 })
 export default MessageCard

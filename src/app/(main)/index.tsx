@@ -19,14 +19,14 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 
 const Main = () => {
- const statusData: StatusItem[] = [
-  { name: "Umer", img: "https://i.pravatar.cc/100?img=1", bg: "https://picsum.photos/400/300", },
-  { name: "Ali", img: "https://i.pravatar.cc/100?img=2", bg: "https://picsum.photos/600/300", },
-  { name: "Hamza", img: "https://i.pravatar.cc/100?img=3",bg: "https://picsum.photos/300/300", },
-  { name: "Sara", img: "https://i.pravatar.cc/100?img=4",bg: "https://picsum.photos/500/300", },
-  { name: "Alex", img: "https://i.pravatar.cc/100?img=7",bg: "https://picsum.photos/900/300", },
-  { name: "Simon", img: "https://i.pravatar.cc/100?img=12",bg: "https://picsum.photos/900/400", },
-];
+  const statusData: StatusItem[] = [
+    { name: "Umer", img: "https://i.pravatar.cc/100?img=1", bg: "https://picsum.photos/400/300", },
+    { name: "Ali", img: "https://i.pravatar.cc/100?img=2", bg: "https://picsum.photos/600/300", },
+    { name: "Hamza", img: "https://i.pravatar.cc/100?img=3", bg: "https://picsum.photos/300/300", },
+    { name: "Sara", img: "https://i.pravatar.cc/100?img=4", bg: "https://picsum.photos/500/300", },
+    { name: "Alex", img: "https://i.pravatar.cc/100?img=7", bg: "https://picsum.photos/900/300", },
+    { name: "Simon", img: "https://i.pravatar.cc/100?img=12", bg: "https://picsum.photos/900/400", },
+  ];
 
   const [currentPage, setCurrentPage] = useState("chats")
 
@@ -97,7 +97,7 @@ const Main = () => {
   }
 
   const getUpdateSetting = () => {
-    switch (currentPage){
+    switch (currentPage) {
       case "chats":
         return <View style={styles.searchBarContainer} >
           <Ionicons name="search-sharp" size={24} color="#8d8989ff" />
@@ -107,43 +107,62 @@ const Main = () => {
 
       case "updates":
         return <View style={styles.statusBarContainer} >
-          
+
           <Text style={styles.statusBarText}> Status</Text>
 
         </View>;
 
-        case "calls":
-          const bottomIcons = [
- { icon: <Ionicons name="call-outline" size={24} color="black" />, label: "Calls" },
- { icon: <FontAwesome name="calendar" size={24} color="black" />, label: "Schedule" },
- { icon: <MaterialIcons name="dialpad" size={24} color="black" />, label: "Keypad" },
- { icon: <FontAwesome name="heart-o" size={24} color="black" />, label: "Favorites" },
-];
-          return(
-            
-
-<View style={styles.bottomBar}>
-  {bottomIcons.map((item, index) => (
-    <View key={index} style={styles.iconWrapper}>
-      <View style={styles.iconSetting}>
-        {item.icon}
-      </View>
-      <Text style={styles.iconText}>{item.label}</Text>
-    </View>
-  ))}
-</View>
+      case "calls":
+        const bottomIcons = [
+          { icon: <Ionicons name="call-outline" size={24} color="black" />, label: "Calls" },
+          { icon: <FontAwesome name="calendar" size={24} color="black" />, label: "Schedule" },
+          { icon: <MaterialIcons name="dialpad" size={24} color="black" />, label: "Keypad" },
+          { icon: <FontAwesome name="heart-o" size={24} color="black" />, label: "Favorites" },
+        ];
+        return (
 
 
-          );
+          <View style={styles.bottomBar}>
+            {bottomIcons.map((item, index) => (
+              <View key={index} style={styles.iconWrapper}>
+                <View style={styles.iconSetting}>
+                  {item.icon}
+                </View>
+                <Text style={styles.iconText}>{item.label}</Text>
+              </View>
+            ))}
+          </View>
 
-        // default:
-        // return "WhatsApp";
+
+        );
+
+      case "communities":
+        return (
+          <TouchableOpacity style={styles.communitiesButton} activeOpacity={0.4} >
+            <View style={styles.communitiesContainer}>
+              <View style={styles.iconContainer}>
+
+              <MaterialIcons name="groups" size={35} color="white" />
+              <Ionicons name="add-circle-sharp" size={30} color="green" style={styles.addButton}/>
+              </View>
+
+
+              <View style={styles.leftContainer} >
+
+                <View style={styles.communitiesTextContainer} >
+                  <Text style={styles.communitiesText} >New community</Text>
+
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+        )
 
     }
   }
 
   const getStatusSetting = () => {
-    switch (currentPage){
+    switch (currentPage) {
       case "chats":
         return <View style={styles.middleBarButtonContainer} >
           {[
@@ -161,65 +180,65 @@ const Main = () => {
 
         </View>
 
-        case "updates":
-          return  <View style={styles.statusCardContainer}>
-            
+      case "updates":
+        return <View style={styles.statusCardContainer}>
+
           <StatusCarousel
-  data={statusData}
-  onPressStatus={(item) => console.log("Open Status:", item)}
-/>
-          </View>        
+            data={statusData}
+            onPressStatus={(item) => console.log("Open Status:", item)}
+          />
+        </View>
 
 
-        // default:
-        // return "WhatsApp";
+      // default:
+      // return "WhatsApp";
     }
 
-        
+
   }
 
   const getUpdateMiddleBarSetting = () => {
     switch (currentPage) {
 
       case "chats":
-        return  (
-        <TouchableOpacity>
-          <View style={styles.archiveContainer} >
-            
-          <View style={styles.archiveLeftContainer} >
-            <Ionicons name="archive-outline" size={22} color="#8d8989ff" />
-            <Text style={styles.archive_text} >Archived</Text>
-          </View>
+        return (
+          <TouchableOpacity>
+            <View style={styles.archiveContainer} >
 
-          <View style={styles.archiveRightContainer}>
-            <View style={styles.archiveborder} >
-              <Text style={styles.archiveCounter} >5</Text>
+              <View style={styles.archiveLeftContainer} >
+                <Ionicons name="archive-outline" size={22} color="#8d8989ff" />
+                <Text style={styles.archive_text} >Archived</Text>
+              </View>
+
+              <View style={styles.archiveRightContainer}>
+                <View style={styles.archiveborder} >
+                  <Text style={styles.archiveCounter} >5</Text>
+                </View>
+
+              </View>
             </View>
-            
+
+
+
+          </TouchableOpacity>);
+
+      case "updates":
+        return (
+          <View style={styles.channelContainer}>
+            <Text style={styles.textChannel}>
+              Channels
+            </Text>
+
+            <TouchableOpacity activeOpacity={0.8} style={styles.exploreButton}>
+              <Text style={styles.exploreButtonText}>Explore</Text>
+
+            </TouchableOpacity>
+
           </View>
-          </View>
+        );
 
-
-
-        </TouchableOpacity>);
-
-          case "updates":
-            return (
-            <View style={styles.channelContainer}>
-              <Text style={styles.textChannel}>
-                Channels
-              </Text>
-
-              <TouchableOpacity activeOpacity={0.8} style={styles.exploreButton}>
-                <Text style={styles.exploreButtonText}>Explore</Text>                
-
-              </TouchableOpacity>
-
-            </View>
-            );
-
-        //      default:
-        // return "WhatsApp";
+      //      default:
+      // return "WhatsApp";
 
 
     }
@@ -262,7 +281,7 @@ const Main = () => {
 
         </View> */}
 
-       
+
 
       </View>
 
@@ -298,43 +317,72 @@ const styles = StyleSheet.create({
   },
 
 
+  communitiesContainer: {
+    flexDirection:"row",
+    alignItems:"center",
+    gap:scale(20),
+    paddingVertical:verticalScale(10),
+  },
+
+  iconContainer: {
+    alignItems:"center",
+    justifyContent:"center",
+    backgroundColor:"#D5D6D8",
+    height:verticalScale(45),
+    width:moderateScale(50),
+    borderRadius:scale(10),
+  },
+
+  addButton:{
+    position:"absolute",
+    top:25,
+    left:30,
+  },
+
+  communitiesButton: {
+    
+  },
+  leftContainer: {},
+  communitiesTextContainer: {},
+  communitiesText: {},
+
   bottomBar: {
-  flexDirection: "row",
-  justifyContent: "space-between",
-  paddingVertical: 15,
-  paddingHorizontal: 10,
-  
-},
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 15,
+    paddingHorizontal: 10,
 
-iconWrapper: {
-  alignItems: "center",
-},
+  },
 
-iconSetting: {
-  height: 55,
-  width: 55,
-  borderRadius: 55,
-  alignItems: "center",
-  justifyContent: "center",
-  backgroundColor: "#e4e6e8",
-  marginBottom: 6, // icon aur text ke darmiyan gap
-},
+  iconWrapper: {
+    alignItems: "center",
+  },
 
-iconText: {
-  fontSize: 11,
-  color: "black",
-},
+  iconSetting: {
+    height: 55,
+    width: 55,
+    borderRadius: 55,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#e4e6e8",
+    marginBottom: 6, // icon aur text ke darmiyan gap
+  },
+
+  iconText: {
+    fontSize: 11,
+    color: "black",
+  },
 
 
   // iconBarContainer:{
-   
+
   // },
   // iconBar:{
   //    flexDirection:"row",
   //   justifyContent:"space-between",
   //   paddingVertical:verticalScale(20),
   //   paddingHorizontal:moderateScale(10),
-    
+
   // },
   // iconSetting:{
   //   height:moderateScale(55),
@@ -349,54 +397,54 @@ iconText: {
   //   flexDirection:'row',
   //   justifyContent:"space-between",
   //   paddingHorizontal:moderateScale(25),
-    
+
 
   // },
   // iconText:{
   //   fontSize:moderateScale(11),
   // },
 
-  channelContainer:{
-    flexDirection:"row",
-    justifyContent:"space-between",
-    paddingTop:verticalScale(10),
-    alignItems:"center"
+  channelContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingTop: verticalScale(10),
+    alignItems: "center"
 
   },
-  exploreButton:{
-    backgroundColor:"#e4e6e8",
-    borderRadius:moderateScale(50),
-    
-    
-  },
-  exploreButtonText:{
-    paddingVertical:verticalScale(5),
-    paddingHorizontal:moderateScale(20),
+  exploreButton: {
+    backgroundColor: "#e4e6e8",
+    borderRadius: moderateScale(50),
+
 
   },
+  exploreButtonText: {
+    paddingVertical: verticalScale(5),
+    paddingHorizontal: moderateScale(20),
 
-  textChannel:{
-    fontSize:moderateScale(20)
+  },
+
+  textChannel: {
+    fontSize: moderateScale(20)
   },
 
 
-  statusBarContainer:{
+  statusBarContainer: {
     paddingTop: verticalScale(20),
-    
+
   },
-  statusCardContainer:{
-    paddingVertical:verticalScale(13),
-    paddingStart:moderateScale(5),
-    
+  statusCardContainer: {
+    paddingVertical: verticalScale(13),
+    paddingStart: moderateScale(5),
+
   },
 
-  statusBarText:{
-    fontSize:moderateScale(20),
+  statusBarText: {
+    fontSize: moderateScale(20),
   },
-  
- 
-  statusCard:{},
- 
+
+
+  statusCard: {},
+
 
   topBarContainer: {
     paddingVertical: verticalScale(10),
@@ -426,7 +474,7 @@ iconText: {
 
 
   middleBarButtonContainer: {
-    
+
     flexDirection: "row",
     // gap:moderateScale(15),
     paddingHorizontal: moderateScale(5),
@@ -451,14 +499,14 @@ iconText: {
   },
 
 
-   archiveContainer: {
-   
+  archiveContainer: {
+
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    
+
     paddingTop: verticalScale(5),
-    
+
   },
   archiveLeftContainer: {
     flexDirection: "row",
@@ -471,27 +519,27 @@ iconText: {
   },
 
   archiveRightContainer: {
-    
-    
-    
-     alignItems:"flex-end",   
+
+
+
+    alignItems: "flex-end",
 
   },
 
-  archiveborder:{
-    width:moderateScale(22),
-    
-          height:moderateScale(22),
-          borderRadius:moderateScale(22),
-          alignItems:"center",
-          justifyContent:"center",
-          
+  archiveborder: {
+    width: moderateScale(22),
+
+    height: moderateScale(22),
+    borderRadius: moderateScale(22),
+    alignItems: "center",
+    justifyContent: "center",
+
   },
   archiveCounter: {
-    fontSize:moderateScale(11),
-    fontWeight:"bold",
-       
-    
+    fontSize: moderateScale(11),
+    fontWeight: "bold",
+
+
   },
 
 
